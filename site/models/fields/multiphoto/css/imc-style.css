@@ -1,0 +1,14 @@
+.drop-photos {
+  text-align: center;
+  padding: 0.5em 0 3em 0;
+  border: 2px dashed darkgray;
+}
+.drop-photos span.dptitle {
+  font-size: 1.1rem;
+  color: darkgray;
+  padding: 20px;
+}	
+
+.drop-photos .size {
+  font-size: small;
+}

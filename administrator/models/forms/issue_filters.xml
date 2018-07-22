@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset addfieldpath="/components/com_imc/models/fields">
+       
+        <field name="moderation" type="radio" default="0" class="btn-group btn-group-yesno" label="COM_IMC_FORM_LBL_ISSUE_MODERATION" description="COM_IMC_FORM_DESC_ISSUE_MODERATION">
+              <option value="0">JNO</option>
+              <option value="1">JYES</option>
+            </field>
+
+        <field name="title" type="text"
+            label="COM_IMC_FORM_LBL_ISSUE_TITLE"
+            description="COM_IMC_FORM_DESC_ISSUE_TITLE" 
+            class="inputbox input-xxlarge input-large-text"
+            filter="string" /> 
+
+        <field name="regnum" type="text"
+                label="COM_IMC_FORM_LBL_ISSUE_REGNUM"
+                description="COM_IMC_FORM_DESC_ISSUE_REGNUM" /> 
+
+        <field name="regdate" type="calendar"
+                label="COM_IMC_FORM_LBL_ISSUE_REGDATE"
+                description="COM_IMC_FORM_DESC_ISSUE_REGDATE" />
+
+        <field name="responsible" type="text"
+                label="COM_IMC_FORM_LBL_ISSUE_RESPONSIBLE"
+                description="COM_IMC_FORM_DESC_ISSUE_RESPONSIBLE" /> 
+
+        <field name="acl_category" type="aclcategory"
+            label="COM_IMC_FORM_LBL_ISSUE_CATID"
+            description="COM_IMC_FORM_DESC_ISSUE_CATID" 
+            extension="com_imc" multiple="false"> 
+                <option value="">JALL</option>
+        </field> 
+        
+        <field name="stepid" type="sql" class="inputbox"
+            label="COM_IMC_FORM_LBL_ISSUE_STEPID"
+            query="SELECT `id`, `title` AS val FROM `#__imc_steps`" 
+            key_field="id" 
+            value_field="val">
+                <option value="">JALL</option>
+        </field> 
+
+        <field name="subgroup" type="subgrouplist"
+            label="COM_IMC_FORM_LBL_ISSUE_SUBGROUP"
+            multiple="false"> 
+              <option value="">JALL</option>
+        </field>
+
+        <field name="language" type="contentlanguage" label="JFIELD_LANGUAGE_LABEL"
+            description="COM_CONTENT_FIELD_LANGUAGE_DESC">
+            <option value="*">JALL</option>
+        </field>
+
+        <field name="state" type="list" label="JSTATUS"
+            description="JFIELD_PUBLISHED_DESC" class="chzn-color-state"
+            filter="intval" size="1" default="1"
+        >
+            <option value="1">
+                JPUBLISHED</option>
+            <option value="0">
+                JUNPUBLISHED</option>
+        </field>
+
+        <field name="from_date" type="calendar" label="COM_IMC_FORM_LBL_ISSUE_FROM_DATE" format="%Y-%m-%d" />
+        <field name="to_date" type="calendar" label="COM_IMC_FORM_LBL_ISSUE_TO_DATE" format="%Y-%m-%d" />
+
+    </fieldset> 
+
+</form>
