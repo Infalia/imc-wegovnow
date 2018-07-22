@@ -3,24 +3,16 @@
   <fieldset addfieldpath="/components/com_imc/models/fields" 
         name="map" 
         class="form-horizontal" 
-        label="COM_IMC_SETTINGS_GOOGLE_MAP_LABEL"
+        label="WeGovNow settings"
         description="COM_IMC_SETTINGS_GOOGLE_MAP_DESC">
       <field type="spacer" name="myspacer" hr="true" />  
-      <field
-        name="api_key"
-        type="text"
-        default=""
-        class="inputbox input-xxlarge"
-        label="COM_IMC_SETTINGS_APIKEY_LABEL"
-        description="COM_IMC_SETTINGS_APIKEY_DESC" />
 
-      <field name="address" type="gmap" 
-            label="COM_IMC_SETTINGS_INITIAL_ADDRESS_LABEL"
-            description="COM_IMC_SETTINGS_INITIAL_ADDRESS_DESC"
-            latitudefield="latitude" 
-            longitudefield="longitude" 
-            width="50%"
-            height="300px" /> 
+      <field 
+        name = "domain"
+        type = "text"
+        label = "InputMap domain"
+        default = "https://sandona-imc.infalia.com"
+      />
 
       <field
         name="latitude"
@@ -39,7 +31,7 @@
       <field
         name="zoom"
         type="text"
-        default="14"        
+        default="18"        
         label="COM_IMC_SETTINGS_INITIAL_MAP_ZOOM_LABEL"
         description="COM_IMC_SETTINGS_INITIAL_MAP_ZOOM_DESC"
       />
@@ -50,45 +42,6 @@
         label="COM_IMC_SETTINGS_MAP_LANGUAGE_LABEL"
         description="COM_IMC_SETTINGS_MAP_LANGUAGE_DESC"
       />      
-      <field
-        name="mapregion"
-        type="text"
-        default="GB"
-        label="COM_IMC_SETTINGS_MAP_REGION_LABEL"
-        description="COM_IMC_SETTINGS_MAP_REGION_DESC"
-      />
-      <field
-        name="hiddenterm"
-        type="text"
-        default=""
-        label="COM_IMC_SETTINGS_HIDDEN_SEARCH_TERM_LABEL"
-        description="COM_IMC_SETTINGS_HIDDEN_SEARCH_TERM_DESC"
-      />
-
-      <field name="scrollwheel" type="radio" default="0" class="btn-group btn-group-yesno" label="COM_IMC_SETTINGS_SCROLLWHEEL_LABEL" description="COM_IMC_SETTINGS_SCROLLWHEEL_DESC">
-        <option value="0">JNO</option>
-        <option value="1">JYES</option>
-      </field>      
-
-      <field name="clusterer" type="radio" default="0" class="btn-group btn-group-yesno" label="COM_IMC_SETTINGS_CLUSTERER_LABEL" description="COM_IMC_SETTINGS_CLUSTERER_DESC">
-        <option value="0">JNO</option>
-        <option value="1">JYES</option>
-      </field>
-      <field name="lockaddressbtn" type="radio" default="1" class="btn-group btn-group-yesno" label="COM_IMC_SETTINGS_BLOCKMARKER_LABEL" description="COM_IMC_SETTINGS_BLOCKMARKER_DESC">
-          <option value="0">JNO</option>
-          <option value="1">JYES</option>
-      </field>
-
-      <field
-          name="boundaries"
-          type="textarea"
-          default=""
-          class="inputbox input-xxlarge"
-          label="COM_IMC_SETTINGS_BOUNDARIES_LABEL"
-          description="COM_IMC_SETTINGS_BOUNDARIES_DESC"
-          rows="10"
-          cols="5"
-      />
 
     </fieldset>
     <fieldset

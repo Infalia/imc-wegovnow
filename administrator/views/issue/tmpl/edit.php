@@ -121,6 +121,40 @@ $canCreate = true;
 
 </script>
 
+<script>
+(function() {
+	var iframeDomain = 'https://inputmap.firstlife.org';
+	window.addEventListener( "message", function (e) {
+		if (e.defaultPrevented) {
+			return
+		}
+		e.preventDefault();
+
+		if (e.origin !== iframeDomain) {
+			return;
+		}
+		if(e.data.src == 'InputMap'){
+			console.log(e.data);
+			jQuery('#<?php echo $this->form->getField('address')->id; ?>').val(e.data.display_name);
+			jQuery('#<?php echo $this->form->getField('latitude')->id; ?>').val(e.data.lat);
+			jQuery('#<?php echo $this->form->getField('longitude')->id; ?>').val(e.data.lng);
+			if(e.data.feature) {
+				var info = '<?php echo JText::_('TPL_IMC4WGN_ISSUE_IS_LINKED'); ?>:';
+				info += '<p><strong>' + e.data.feature.marker_name + '</strong><br />';
+				info += '(' + e.data.feature.marker_address + ')<br />';
+				info += '<a target="_blank" href="'+ e.data.feature.marker_link +'"><?php echo JText::_('TPL_IMC4WGN_MORE_DETAILS'); ?></a>';
+				jQuery('.information').addClass('alert alert-info');
+				jQuery('.information').html(info);
+			}
+			else {
+				jQuery('.information').removeClass('alert alert-info');
+				jQuery('.information').html('');
+			}
+		}
+	});
+})();
+</script>
+
 <form action="<?php echo JRoute::_('index.php?option=com_imc&layout=edit&id=' . (int) $this->item->id); ?>" method="post" enctype="multipart/form-data" name="adminForm" id="issue-form" class="form-validate">
 
 	<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>
@@ -207,12 +241,39 @@ $canCreate = true;
             </div>
             <div class="span6">
                 <fieldset class="adminform">
+					<!-- ADDRESS - WEGOVNOW INPUTMAP -->
+					<?php 
+						$params = JComponentHelper::getParams('com_imc');
+						$domain = $params->get('domain', 'http://localhost');
+						$itemId = (isset($this->item->id) ? $this->item->id : 0);
+						$zoom = 18;
+					?>
 					<div class="control-group">
-						<div class="control-label"><?php echo $this->form->getLabel('address'); ?></div>
-						<div class="controls"><?php echo $this->form->getInput('address'); ?></div>
+						<label for="<?php echo( $this->form->getField('address')->id ); ?>" class="bmd-label-floating text-dark"><?php echo $this->form->getField('address')->title; ?>*</label>
+						<input 
+							id="<?php echo( $this->form->getField('address')->id ); ?>" 
+							name="<?php echo( $this->form->getField('address')->name ); ?>" 
+							value="<?php echo( $this->form->getField('address')->value ); ?>" 
+							type="text" 
+							class="form-control required" 
+							aria-required="true"
+							required="required"
+							autocomplete="off"
+							style="width: 100%;"
+						/>
+
+						<div id="imc-map-canvas" class="mt-3" style="width: 100%;height: 300px;">
+							<?php if($itemId > 0): ?>
+								<iframe frameborder="0" width="100%" height="100%" class="imc-form-map" title="Edit location" src="https://inputmap.firstlife.org?domain=<?php echo $domain; ?>&mode=lite&onlypointer=true&state=edit&lightArea=false&lang=it&lat=<?php echo( $this->form->getField('latitude')->value ); ?>&lon=<?php echo( $this->form->getField('longitude')->value ); ?>&zoom=<?php echo $zoom;?>"></iframe>
+							<?php else: ?>
+								<iframe frameborder="0" width="100%" height="100%" class="imc-form-map" title="Set location" src="https://inputmap.firstlife.org?domain=<?php echo $domain; ?>&mode=lite&onlypointer=true&lightArea=false&lang=it&lat=<?php echo $lat;?>&lon=<?php echo $lng;?>&zoom=<?php echo $zoom;?>"></iframe>
+							<?php endif ?>
+						</div>
+						<div style="margin-top: 10px;" class="information"></div>
+
 						<?php echo $this->form->getInput('latitude'); ?>
 						<?php echo $this->form->getInput('longitude'); ?>
-					</div>
+					</div>					
 
 					<div class="control-group">
 						<div class="control-label"><?php echo $this->form->getLabel('extra'); ?></div>
