@@ -37,8 +37,8 @@ class ImcControllerIssueForm extends ImcController {
 
         // Keep OTM belongs_to field
         $belongs_to = '';
-        if(isset($data->belongs_to)){
-            $belongs_to = $data->belongs_to;
+        if(isset($data['belongs_to'])){
+            $belongs_to = $data['belongs_to'];
         }
         
         // Validate the posted data.
