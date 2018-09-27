@@ -35,6 +35,12 @@ class ImcControllerIssueForm extends ImcController {
         // Get the user data.
         $data = JFactory::getApplication()->input->get('jform', array(), 'array');
 
+        // Keep OTM belongs_to field
+        $belongs_to = '';
+        if(isset($data->belongs_to)){
+            $belongs_to = $data->belongs_to;
+        }
+        
         // Validate the posted data.
         $form = $model->getForm();
         if (!$form) {
@@ -106,7 +112,7 @@ class ImcControllerIssueForm extends ImcController {
         $app->setUserState('com_imc.edit.issue.data', null);
 
         //emulate postSaveHook like extending from JControllerForm
-        $this->postSaveHook($model, $data);
+        $this->postSaveHook($model, $data, $belongs_to);
     }
 
     function cancel() {
@@ -210,7 +216,7 @@ class ImcControllerIssueForm extends ImcController {
     }
 
     //simulate postSaveHook to move any images to the correct directory
-    public function postSaveHook (JModelLegacy $model, $validData = array())
+    public function postSaveHook (JModelLegacy $model, $validData = array(), $belongs_to)
     {
         
         $insertid = JFactory::getApplication()->getUserState('com_imc.edit.issue.insertid');
@@ -292,6 +298,7 @@ class ImcControllerIssueForm extends ImcController {
             }    
 
             $dispatcher = JEventDispatcher::getInstance();
+            $validData['belongs_to'] = $belongs_to;
             $results = $dispatcher->trigger( 'onAfterNewIssueAdded', array( $model, $validData, $insertid ) );            
         }
         else {
